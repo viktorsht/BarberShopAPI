@@ -20,5 +20,5 @@ public class ClientEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "phone")
-    private boolean phone;
+    private String phone;
 }

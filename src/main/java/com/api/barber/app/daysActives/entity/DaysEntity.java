@@ -19,6 +19,6 @@ public class DaysEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "status")
-    private String status;
+    private Boolean status;
 
 }
