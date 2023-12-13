@@ -1,23 +1,24 @@
-package com.api.barber.app.daysActives.models;
+package com.api.barber.app.daysActives.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity()
+@Entity
 @Table(name="days")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class DaysActivesModel {
-    //public DaysModel() {}
+public class DaysEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "int")
     private int id;
+    @Column(name = "name")
     private String name;
-    private boolean status;
+    @Column(name = "status")
+    private String status;
 
 }

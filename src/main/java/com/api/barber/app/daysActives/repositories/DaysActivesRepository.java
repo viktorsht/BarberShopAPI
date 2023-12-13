@@ -2,8 +2,8 @@ package com.api.barber.app.daysActives.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.api.barber.app.daysActives.models.DaysActivesModel;
+import com.api.barber.app.daysActives.entity.DaysEntity;
 
-public interface DaysActivesRepository extends JpaRepository<DaysActivesModel, Integer>{
+public interface DaysActivesRepository extends JpaRepository<DaysEntity, Integer>{
     
 }
