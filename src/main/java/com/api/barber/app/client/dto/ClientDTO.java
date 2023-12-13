@@ -1,4 +1,4 @@
-package com.api.barber.app.client;
+package com.api.barber.app.client.dto;
 
 public record ClientDTO(String nome, String phone) {
 }

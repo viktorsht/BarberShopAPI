@@ -1,4 +1,4 @@
-package com.api.barber.app.client;
+package com.api.barber.app.client.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
