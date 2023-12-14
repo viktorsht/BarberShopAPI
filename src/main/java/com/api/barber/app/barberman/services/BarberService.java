@@ -35,17 +35,24 @@ public class BarberService {
         return barberRepository.save(entity);
     }
 
-    public void updateBarber(int clientId, BarberDTO barberDTO){
-        var barberEntity = barberRepository.findById(clientId);
+    public void updateBarber(int barberId, BarberDTO barberDTO){
+        var barberEntity = barberRepository.findById(barberId);
         if(barberEntity.isPresent()){
-            var client = barberEntity.get();
+            var barber = barberEntity.get();
             if(barberDTO.name() != null){
-                client.setName(barberDTO.name());
+                barber.setName(barberDTO.name());
             }
             if(barberDTO.phone() != null){
-                client.setPhone(barberDTO.phone());
+                barber.setPhone(barberDTO.phone());
             }
-            barberRepository.save(client);
+            barberRepository.save(barber);
+        }
+    }
+
+    public void deleteBarberById(int barberId){
+        var barberEntity = barberRepository.existsById(barberId);
+        if(barberEntity) {
+            barberRepository.deleteById(barberId);
         }
     }
 }

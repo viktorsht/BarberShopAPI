@@ -47,7 +47,11 @@ public class BarberController {
         }
     }
 
-    //@DeleteMapping()
+    @DeleteMapping("/{barberId}")
+    public ResponseEntity<Void> deleteBarber(@PathVariable("barberId") int barberId){
+        barberService.deleteBarberById(barberId);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
