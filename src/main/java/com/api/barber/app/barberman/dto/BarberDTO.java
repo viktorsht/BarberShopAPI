@@ -1,4 +1,4 @@
 package com.api.barber.app.barberman.dto;
 
-public record BarberDTO(String name, String phone) {
+public record BarberDTO(String name, String phone, String password) {
 }

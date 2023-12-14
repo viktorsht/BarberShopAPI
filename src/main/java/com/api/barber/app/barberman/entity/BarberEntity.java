@@ -25,6 +25,8 @@ public class BarberEntity {
     private String name;
     @Column(name = "phone")
     private String phone;
+    @Column(name = "password")
+    private String password;
     @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
@@ -32,9 +34,10 @@ public class BarberEntity {
     @Column(name = "updated_at")
     private Instant updateAt;
 
-    public BarberEntity(String name, String phone, Instant createdAt, Instant updateAt){
+    public BarberEntity(String name, String phone, String password, Instant createdAt, Instant updateAt){
         this.name = name;
         this.phone = phone;
+        this.password = password;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
     }

@@ -3,7 +3,6 @@ package com.api.barber.app.client.service;
 import com.api.barber.app.client.dto.ClientDTO;
 import com.api.barber.app.client.entity.ClientEntity;
 import com.api.barber.app.client.repository.ClientRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

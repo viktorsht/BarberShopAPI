@@ -24,16 +24,30 @@ public class BarberController {
         return barberService.listBarbersService();
     }
 
+    @GetMapping("/{barberId}")
+    public ResponseEntity<BarberEntity> getBarber(@PathVariable("barberId") int barberId){
+        var barber = barberService.listBarberById(barberId);
+        if(barber.isPresent()){
+            return ResponseEntity.ok(barber.get());
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
-    public ResponseEntity<BarberEntity> postBarber(@RequestBody BarberDTO barberDTO){
+    public ResponseEntity<?> postBarber(@RequestBody BarberDTO barberDTO){
         try {
             var barber = barberService.createBarber(barberDTO);
             return ResponseEntity.created(URI.create("/api/v1/barbers" + barber.getId())).build();
         }
         catch (Exception e){
-            throw e;
+            String error = "Erro na criação: " + e.getMessage();
+            return ResponseEntity.badRequest().body(error);
         }
     }
+
+    //@DeleteMapping()
 
 
 }
