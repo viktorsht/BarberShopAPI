@@ -1,4 +1,5 @@
 package com.api.barber.app.hoursActive.dto;
 
-public record HoursActiveDTO(String name, Boolean status ) {
+import java.time.LocalTime;
+public record HoursActiveDTO(LocalTime time, Boolean status ) {
 }
