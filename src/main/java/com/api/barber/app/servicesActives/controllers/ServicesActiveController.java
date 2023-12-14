@@ -30,8 +30,14 @@ public class ServicesActiveController {
             return ResponseEntity.created(URI.create("/api/v1/services" + serviceCreate.toString())).build();
         }
         catch (Exception e){
-            String error = "Erro na criação" + e.getMessage();
+            String error = "Erro na criação de um serviço" + e.getMessage();
             return ResponseEntity.badRequest().body(error);
         }
+    }
+
+    @PutMapping("/{serviceId}")
+    public ResponseEntity<Void> updateService(@PathVariable("serviceId") int serviceId, @RequestBody ServicesActivesDTO servicesActivesDTO){
+        servicesActivesService.updateService(serviceId, servicesActivesDTO);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -20,7 +20,7 @@ public class ServicesActivesService {
 
     public ServicesActiveEntity createServices(ServicesActivesDTO servicesActivesDTO){
         var entity = new ServicesActiveEntity(
-                servicesActivesDTO.nome(),
+                servicesActivesDTO.name(),
                 Integer.parseInt(servicesActivesDTO.duration()),
                 servicesActivesDTO.price()
         );
@@ -31,8 +31,8 @@ public class ServicesActivesService {
         var serviceEntity = servicesActiveRepository.findById(serviceId);
         if (serviceEntity.isPresent()){
             var service = serviceEntity.get();
-            if(servicesActivesDTO.nome() != null){
-                service.setName(servicesActivesDTO.nome());
+            if(servicesActivesDTO.name() != null){
+                service.setName(servicesActivesDTO.name());
             }
             if(servicesActivesDTO.duration() != null){
                 service.setDurationMinutes(Integer.parseInt(servicesActivesDTO.duration()));
@@ -40,6 +40,7 @@ public class ServicesActivesService {
             if(servicesActivesDTO.price() != null){
                 service.setPrice(servicesActivesDTO.price());
             }
+            servicesActiveRepository.save(service);
         }
     }
 
