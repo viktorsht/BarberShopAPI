@@ -1,10 +1,8 @@
-package com.api.barber.app.barber.services;
+package com.api.barber.app.barberman.services;
 
-import com.api.barber.app.barber.dto.BarberDTO;
-import com.api.barber.app.barber.entity.BarberEntity;
-import com.api.barber.app.barber.repository.BarberRepository;
-import com.api.barber.app.client.dto.ClientDTO;
-import com.api.barber.app.client.entity.ClientEntity;
+import com.api.barber.app.barberman.dto.BarberDTO;
+import com.api.barber.app.barberman.entity.BarberEntity;
+import com.api.barber.app.barberman.repository.BarberRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,10 +19,10 @@ public class BarberService {
         return barberRepository.findAll();
     }
 
-    public BarberEntity createBarber(BarberDTO clientDTO){
+    public BarberEntity createBarber(BarberDTO barberDTO){
         var entity = new BarberEntity(
-                clientDTO.name(),
-                clientDTO.phone(),
+                barberDTO.name(),
+                barberDTO.phone(),
                 Instant.now(),
                 Instant.now()
         );
