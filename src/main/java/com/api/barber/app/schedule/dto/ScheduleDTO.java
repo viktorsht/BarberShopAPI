@@ -1,4 +1,4 @@
 package com.api.barber.app.schedule.dto;
 
-public record ScheduleDTO(int day, int hours, int service, int payment, int client, int barber) {
+public record ScheduleDTO(String scheduledTime ,int service, int payment, int client, int barber) {
 }

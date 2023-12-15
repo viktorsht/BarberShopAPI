@@ -108,15 +108,12 @@ CREATE TABLE barber (
 
 CREATE TABLE schedule (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    day_id INT,
-    hour_id INT,
+    scheduled_day VARCHAR(26) NOT NULL UNIQUE,
     service_id INT,
     payment_method_id INT,
     client_id INT,
     barber_id INT,
     scheduled_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (day_id) REFERENCES days(id),
-    FOREIGN KEY (hour_id) REFERENCES active_hours(id),
     FOREIGN KEY (service_id) REFERENCES services(id),
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods(id),
     FOREIGN KEY (client_id) REFERENCES client(id),

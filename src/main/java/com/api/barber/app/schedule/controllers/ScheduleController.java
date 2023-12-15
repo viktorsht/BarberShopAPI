@@ -1,4 +1,4 @@
-package com.api.barber.app.schedule;
+package com.api.barber.app.schedule.controllers;
 
 import com.api.barber.app.schedule.dto.ScheduleDTO;
 import com.api.barber.app.schedule.entity.ScheduleEntity;

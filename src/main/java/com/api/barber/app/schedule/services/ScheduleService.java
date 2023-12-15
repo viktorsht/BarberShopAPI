@@ -21,8 +21,7 @@ public class ScheduleService {
 
     public ScheduleEntity createSchedule(ScheduleDTO scheduleDTO){
         var entity = new ScheduleEntity(
-                scheduleDTO.day(),
-                scheduleDTO.hours(),
+                scheduleDTO.scheduledTime(),
                 scheduleDTO.service(),
                 scheduleDTO.payment(),
                 scheduleDTO.client(),
