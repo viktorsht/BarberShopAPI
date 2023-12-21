@@ -1,4 +1,4 @@
-package com.api.barber.domain.error;
+package com.api.barber.app.schedule.error;
 
 public class DuplicateScheduleException extends RuntimeException {
 

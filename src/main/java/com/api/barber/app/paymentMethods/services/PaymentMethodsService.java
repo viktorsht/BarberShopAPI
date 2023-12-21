@@ -6,6 +6,7 @@ import com.api.barber.app.paymentMethods.repository.PaymentMethodsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PaymentMethodsService {
@@ -17,6 +18,10 @@ public class PaymentMethodsService {
 
     public List<PaymentMethodsEntity> listPaymentMethods(){
         return paymentMethodsRepository.findAll();
+    }
+
+    public Optional<PaymentMethodsEntity> listById(int paymentId){
+        return paymentMethodsRepository.findById(paymentId);
     }
 
     public void updatePaymentMethods(int paymentMethodsId, PaymentMethodsDTO paymentMethodsDTO){

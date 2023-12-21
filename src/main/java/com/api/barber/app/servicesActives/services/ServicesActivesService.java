@@ -6,6 +6,8 @@ import com.api.barber.app.servicesActives.repository.ServicesActiveRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ServicesActivesService {
     final private ServicesActiveRepository servicesActiveRepository;
@@ -16,6 +18,10 @@ public class ServicesActivesService {
 
     public List<ServicesActiveEntity> listServices(){
         return servicesActiveRepository.findAll();
+    }
+
+    public Optional<ServicesActiveEntity> listServiceById(int serviceId){
+        return servicesActiveRepository.findById(serviceId);
     }
 
     public ServicesActiveEntity createServices(ServicesActivesDTO servicesActivesDTO){

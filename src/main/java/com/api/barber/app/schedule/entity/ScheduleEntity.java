@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.cglib.core.Local;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -38,13 +40,14 @@ public class ScheduleEntity {
 
     @CreationTimestamp
     @Column(name = "scheduled_time", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Instant scheduledTime;
+    private LocalDateTime scheduledTime;
 
-    public ScheduleEntity(String scheduledDay, int service, int payment, int client, int barber) {
+    public ScheduleEntity(String scheduledDay, int service, int payment, int client, int barber, LocalDateTime scheduledTime) {
         this.scheduledDay = scheduledDay;
         this.service = service;
         this.paymentMethod = payment;
         this.client = client;
         this.barber = barber;
+        this.scheduledTime = scheduledTime;
     }
 }

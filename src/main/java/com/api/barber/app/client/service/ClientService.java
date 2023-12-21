@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -18,6 +19,10 @@ public class ClientService {
 
     public List<ClientEntity> listClientsService(){
         return clientRepository.findAll();
+    }
+
+    public Optional<ClientEntity> listClientById(int clientId){
+        return clientRepository.findById(clientId);
     }
 
     public ClientEntity createClient(ClientDTO clientDTO){
