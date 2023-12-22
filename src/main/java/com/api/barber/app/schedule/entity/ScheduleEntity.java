@@ -40,14 +40,14 @@ public class ScheduleEntity {
 
     @CreationTimestamp
     @Column(name = "scheduled_time", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime scheduledTime;
+    private LocalDateTime createdAt;
 
-    public ScheduleEntity(String scheduledDay, int service, int payment, int client, int barber, LocalDateTime scheduledTime) {
+    public ScheduleEntity(String scheduledDay, int service, int payment, int client, int barber, LocalDateTime createdAt) {
         this.scheduledDay = scheduledDay;
         this.service = service;
         this.paymentMethod = payment;
         this.client = client;
         this.barber = barber;
-        this.scheduledTime = scheduledTime;
+        this.createdAt = createdAt;
     }
 }

@@ -10,6 +10,8 @@ import com.api.barber.app.schedule.dto.ScheduleDTO;
 import com.api.barber.app.schedule.entity.ScheduleEntity;
 import com.api.barber.app.schedule.entity.ScheduleResponseEntity;
 import com.api.barber.app.schedule.error.DuplicateScheduleException;
+import com.api.barber.app.schedule.error.NotDeleteScheduleException;
+import com.api.barber.app.schedule.error.NotFoundScheduleException;
 import com.api.barber.app.schedule.repository.ScheduleRepository;
 import com.api.barber.app.schedule.services.ScheduleService;
 import com.api.barber.app.servicesActives.entity.ServicesActiveEntity;
@@ -40,24 +42,6 @@ public class ScheduleController {
         this.paymentMethodsService = paymentMethodsService;
     }
 
-    /*
-    * Optional<ServicesActiveEntity> service = servicesActivesService.listServiceById(entity.getService());
-            Optional<PaymentMethodsEntity> paymentMethods = paymentMethodsService.listById(entity.getPaymentMethod());
-            Optional<ClientEntity> client = clientService.listClientById(entity.getClient());
-            Optional<BarberEntity> barber = barberService.listBarberById(entity.getBarber());
-
-            ScheduleResponseEntity responseEntity = new ScheduleResponseEntity(
-                    entity.getId(),
-                    entity.getScheduledDay(),
-                    service.get(),
-                    paymentMethods.get(),
-                    client.get(),
-                    barber.get(),
-                    entity.getScheduledTime()
-            );
-    *
-    * */
-
     @GetMapping
     public List<ScheduleResponseEntity> getSchedule(){
         List<ScheduleEntity> entity = scheduleService.listSchedule();
@@ -74,7 +58,7 @@ public class ScheduleController {
                     paymentMethods.get(),
                     client.get(),
                     barber.get(),
-                    entity.get(i).getScheduledTime()
+                    entity.get(i).getCreatedAt()
             );
             entityList.add(responseEntity);
         }
@@ -95,8 +79,31 @@ public class ScheduleController {
         }
     }
 
-    /*@GetMapping("/{id}")
-    public Optional<ScheduleEntity> getSchedule(@PathVariable("id") int id){
-        //return scheduleService.updateSchedule(id);
-    }*/
+    @PutMapping("/{scheduleId}")
+    public ResponseEntity<?> putSchedule(@PathVariable("scheduleId") int scheduleId, @RequestBody ScheduleDTO scheduleDTO){
+        try {
+            scheduleService.updateSchedule(scheduleId, scheduleDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (NotFoundScheduleException e){
+            return new  ResponseEntity<>("Erro ao atualizar agendamento: " + e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Erro ao atualizar agendamento: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{scheduleId}")
+    public ResponseEntity<?> delSchedule(@PathVariable("scheduleId") int scheduleId){
+        try {
+            scheduleService.deleteSchedule(scheduleId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (NotFoundScheduleException e){
+            return new ResponseEntity<>("Erro ao deletar agendamento: " + e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Erro ao deletar agendamento: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
