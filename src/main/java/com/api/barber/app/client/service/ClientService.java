@@ -25,6 +25,10 @@ public class ClientService {
         return clientRepository.findById(clientId);
     }
 
+    public Optional<ClientEntity> searchClientByPhoneNumber(String phone){
+        return clientRepository.findByPhone(phone);
+    }
+
     public ClientEntity createClient(ClientDTO clientDTO){
         var entity = new ClientEntity(
                 clientDTO.name(),
