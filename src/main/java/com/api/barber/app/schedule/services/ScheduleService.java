@@ -2,6 +2,7 @@ package com.api.barber.app.schedule.services;
 
 import com.api.barber.app.schedule.dto.ScheduleDTO;
 import com.api.barber.app.schedule.entity.ScheduleEntity;
+import com.api.barber.app.schedule.entity.ScheduleResponseEntity;
 import com.api.barber.app.schedule.error.DuplicateScheduleException;
 import com.api.barber.app.schedule.error.NotDeleteScheduleException;
 import com.api.barber.app.schedule.repository.ScheduleRepository;

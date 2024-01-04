@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Integer> {
     @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END " +
@@ -16,5 +18,9 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Intege
             "WHERE s.client.id = :clientId " +
             "ORDER BY s.scheduled_time DESC")
     int existsByScheduleClient(@Param("clientId") int clientId);*/
+
+    //Optional<ScheduleEntity> nextScheduleBarber(int userId);
+    //Optional<ScheduleEntity> nextScheduleClient(int userId);
+    //List<ScheduleEntity> findByUsuarioAndUnidadeOrderByDataHoraAsc(String usuario, String unidade);
 
 }

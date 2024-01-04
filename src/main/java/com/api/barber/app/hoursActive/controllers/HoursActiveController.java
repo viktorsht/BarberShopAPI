@@ -22,6 +22,11 @@ public class HoursActiveController {
         return hoursActiveService.listHoursActive();
     }
 
+    @GetMapping("/{dayId}")
+    public List<HoursActiveEntity> getHoursActiveByDay(@PathVariable("dayId") int dayId){
+        return hoursActiveService.listHoursDay(dayId);
+    }
+
     @PutMapping("/{hoursActiveId}")
     public ResponseEntity<Void> putHoursActive(@PathVariable("hoursActiveId") int hoursActiveId, @RequestBody HoursActiveDTO hoursActiveDTO){
         hoursActiveService.updateHoursActive(hoursActiveId, hoursActiveDTO);

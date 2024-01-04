@@ -19,6 +19,10 @@ public class HoursActiveService {
         return hoursActiveRepository.findAll();
     }
 
+    public List<HoursActiveEntity> listHoursDay(int day){
+        return hoursActiveRepository.findByDay(day);
+    }
+
     public void updateHoursActive(int hoursActiveId, HoursActiveDTO hoursActiveDTO){
         var hoursEntity = hoursActiveRepository.findById(hoursActiveId);
         if(hoursEntity.isPresent()) {

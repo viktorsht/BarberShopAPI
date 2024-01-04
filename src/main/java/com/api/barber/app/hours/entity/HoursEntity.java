@@ -1,4 +1,4 @@
-package com.api.barber.app.hoursActive.entity;
+package com.api.barber.app.hours.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,20 +6,18 @@ import lombok.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name="active_hours")
+@Table(name="hours")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class HoursActiveEntity {
+public class HoursEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id", columnDefinition = "int")
         private int id;
-        @Column(name = "day_id")
-        private int day;
         @Column(name = "hour_time")
         private LocalTime time;
         @Column(name = "status")

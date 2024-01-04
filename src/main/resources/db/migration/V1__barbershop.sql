@@ -1,53 +1,21 @@
-CREATE TABLE active_hours ( id INT AUTO_INCREMENT PRIMARY KEY, hour_time TIME NOT NULL, status BOOLEAN DEFAULT TRUE );
+CREATE TABLE hours ( id INT AUTO_INCREMENT PRIMARY KEY, hour_time TIME NOT NULL, status BOOLEAN DEFAULT TRUE );
 
-INSERT INTO active_hours (hour_time) VALUES ('00:00:00'),
-       ('00:30:00'),
-       ('01:00:00'),
-       ('01:30:00'),
-       ('02:00:00'),
-       ('02:30:00'),
-       ('03:00:00'),
-       ('03:30:00'),
-       ('04:00:00'),
-       ('04:30:00'),
-       ('05:00:00'),
-       ('05:30:00'),
-       ('06:00:00'),
-       ('06:30:00'),
-       ('07:00:00'),
-       ('07:30:00'),
+INSERT INTO hours (hour_time) VALUES ('07:00:00'),
        ('08:00:00'),
-       ('08:30:00'),
        ('09:00:00'),
-       ('09:30:00'),
        ('10:00:00'),
-       ('10:30:00'),
        ('11:00:00'),
-       ('11:30:00'),
        ('12:00:00'),
-       ('12:30:00'),
        ('13:00:00'),
-       ('13:30:00'),
        ('14:00:00'),
-       ('14:30:00'),
        ('15:00:00'),
-       ('15:30:00'),
        ('16:00:00'),
-       ('16:30:00'),
        ('17:00:00'),
-       ('17:30:00'),
        ('18:00:00'),
-       ('18:30:00'),
        ('19:00:00'),
-       ('19:30:00'),
        ('20:00:00'),
-       ('20:30:00'),
        ('21:00:00'),
-       ('21:30:00'),
-       ('22:00:00'),
-       ('22:30:00'),
-       ('23:00:00'),
-       ('23:30:00');
+       ('22:00:00');
 
 CREATE TABLE days (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,13 +24,32 @@ CREATE TABLE days (
 );
 
 INSERT INTO days (name, status) VALUES
-    ('Domingo', 1),
     ('Segunda-feira', 1),
     ('Terça-feira', 1),
     ('Quarta-feira', 1),
     ('Quinta-feira', 1),
     ('Sexta-feira', 1),
-    ('Sábado', 1);
+    ('Sábado', 1),
+    ('Domingo', 1);
+
+CREATE TABLE active_hours (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    day_id INT,
+    hour_time TIME,
+    status BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (day_id) REFERENCES days(id)
+);
+
+INSERT INTO active_hours (day_id, hour_time, status)
+SELECT
+    days.id AS day_id,
+    hours.hour_time AS hour_time,
+    CASE
+        WHEN days.id IN (7) THEN FALSE
+        ELSE TRUE
+    END AS status
+FROM
+    days, hours;
 
 CREATE TABLE services (
     id INT AUTO_INCREMENT PRIMARY KEY,

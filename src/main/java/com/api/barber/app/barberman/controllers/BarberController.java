@@ -2,11 +2,13 @@ package com.api.barber.app.barberman.controllers;
 
 import com.api.barber.app.barberman.dto.BarberDTO;
 import com.api.barber.app.barberman.entity.BarberEntity;
+import com.api.barber.app.barberman.entity.BarberResponseEntity;
 import com.api.barber.app.barberman.services.BarberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController()
@@ -20,8 +22,13 @@ public class BarberController {
     }
 
     @GetMapping
-    public List<BarberEntity> listBarbers(){
-        return barberService.listBarbersService();
+    public List<BarberResponseEntity> listBarbers(){
+        ArrayList<BarberResponseEntity> listBarbers = new ArrayList<>();
+        List<BarberEntity> entityList =  barberService.listBarbersService();
+        for(BarberEntity entity: entityList){
+            listBarbers.add(new BarberResponseEntity(entity));
+        }
+        return listBarbers;
     }
 
     @GetMapping("/{barberId}")
