@@ -28,7 +28,8 @@ public class ScheduleService {
     }
 
     public ScheduleEntity createSchedule(ScheduleDTO scheduleDTO){
-        if(!scheduleRepository.existsByScheduledDateTimeString(scheduleDTO.scheduledTime())) {
+        boolean existSchedule = scheduleRepository.existsByScheduledDateTimeStringAndBarberId(scheduleDTO.scheduledTime(), scheduleDTO.barber());
+        if(!existSchedule) {
             var entity = new ScheduleEntity(
                     scheduleDTO.scheduledTime(),
                     scheduleDTO.service(),
@@ -43,6 +44,25 @@ public class ScheduleService {
         else{
             throw new DuplicateScheduleException("Erro ao criar agendamento: Já existe um agendamento para o horário especificado.");
         }
+    }
+
+    public Optional<ScheduleEntity> myNextSchedule(String user, int userId) {
+        if(user.equals("client")){
+            return scheduleRepository.findNearestScheduleByClient(userId);
+        }
+        //return null;
+        return scheduleRepository.findNearestScheduleByBarber(userId);
+    }
+
+
+    public List<ScheduleEntity> listScheduleByUser(String user, int userId){
+        if(user.equals("client")){
+            return scheduleRepository.findScheduleByClient(userId);
+        }
+        if(user.equals("barber")){
+            return scheduleRepository.findScheduleByBarber(userId);
+        }
+        return scheduleRepository.findAll();
     }
 
     public void updateSchedule(int scheduleId, ScheduleDTO scheduleDTO){

@@ -95,7 +95,7 @@ CREATE TABLE barber (
 
 CREATE TABLE schedule (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    scheduled_day VARCHAR(26) NOT NULL UNIQUE,
+    scheduled_day VARCHAR(26) NOT NULL,
     service_id INT,
     payment_method_id INT,
     client_id INT,

@@ -19,6 +19,7 @@ import com.api.barber.app.servicesActives.services.ServicesActivesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,19 +66,64 @@ public class ScheduleController {
         return entityList;
     }
 
+    @GetMapping("/{user}/{userId}")
+    public List<ScheduleResponseEntity> getScheduleByUser(@PathVariable("user") String user, @PathVariable("userId") int userId){
+        List<ScheduleEntity> entity = scheduleService.listScheduleByUser(user, userId);
+        List<ScheduleResponseEntity> entityList = new ArrayList<>();
+        for(int i = 0; i < entity.size(); i++) {
+            Optional<ServicesActiveEntity> service = servicesActivesService.listServiceById(entity.get(i).getService());
+            Optional<PaymentMethodsEntity> paymentMethods = paymentMethodsService.listById(entity.get(i).getPaymentMethod());
+            Optional<ClientEntity> client = clientService.listClientById(entity.get(i).getClient());
+            Optional<BarberEntity> barber = barberService.listBarberById(entity.get(i).getBarber());
+            ScheduleResponseEntity responseEntity = new ScheduleResponseEntity(
+                    entity.get(i).getId(),
+                    entity.get(i).getScheduledDay(),
+                    service.get(),
+                    paymentMethods.get(),
+                    client.get(),
+                    barber.get(),
+                    entity.get(i).getCreatedAt()
+            );
+            entityList.add(responseEntity);
+        }
+        return entityList;
+    }
+
+    @GetMapping("/next/{user}/{userId}")
+    public ResponseEntity<ScheduleResponseEntity> getNextSchedule(@PathVariable("user") String user, @PathVariable("userId") int userId){
+        var entity = scheduleService.myNextSchedule(user, userId);
+        if(entity.isPresent()){
+            System.out.println(entity.get().getScheduledDay());
+            Optional<ServicesActiveEntity> service = servicesActivesService.listServiceById(entity.get().getService());
+            Optional<PaymentMethodsEntity> paymentMethods = paymentMethodsService.listById(entity.get().getPaymentMethod());
+            Optional<ClientEntity> client = clientService.listClientById(entity.get().getClient());
+            Optional<BarberEntity> barber = barberService.listBarberById(entity.get().getBarber());
+            ScheduleResponseEntity responseEntity = new ScheduleResponseEntity(
+                    entity.get().getId(),
+                    entity.get().getScheduledDay(),
+                    service.get(),
+                    paymentMethods.get(),
+                    client.get(),
+                    barber.get(),
+                    entity.get().getCreatedAt()
+            );
+            return ResponseEntity.ok(responseEntity);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping
-    public ResponseEntity<?> postSchedule(@RequestBody ScheduleDTO scheduleDTO){
+    public ResponseEntity<?> postSchedule(@RequestBody ScheduleDTO scheduleDTO) {
         try {
             ScheduleEntity entity = scheduleService.createSchedule(scheduleDTO);
             return new ResponseEntity<>(entity, HttpStatus.CREATED);
-        }
-        catch (DuplicateScheduleException e) {
-            return new ResponseEntity<>("Erro ao criar agendamento: " + e.getMessage(), HttpStatus.CONFLICT);
-        }
-        catch (Exception e){
-            return new ResponseEntity<>("Erro ao criar agendamento: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (DuplicateScheduleException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Erro ao criar agendamento: " + e.getMessage());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao criar agendamento: " + e.getMessage());
         }
     }
+
 
     @PutMapping("/{scheduleId}")
     public ResponseEntity<?> putSchedule(@PathVariable("scheduleId") int scheduleId, @RequestBody ScheduleDTO scheduleDTO){
