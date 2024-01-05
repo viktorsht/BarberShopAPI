@@ -32,7 +32,8 @@ public class ScheduleService {
             var entity = new ScheduleEntity(
                     scheduleDTO.scheduledTime(),
                     scheduleDTO.service(),
-                    scheduleDTO.payment(),
+                    1,
+                    //scheduleDTO.payment(), // no app não funciona o pagamento ainda ... só tirar o comentário e apagar o 1
                     scheduleDTO.client(),
                     scheduleDTO.barber(),
                     LocalDateTime.now() // create
