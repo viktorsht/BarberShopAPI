@@ -26,11 +26,8 @@ public class CalculateTime {
     public static boolean isAfterCurrentTime(LocalTime inputTime) {
         try {
             LocalTime currentTime = LocalTime.now();
-            //LocalTime providedTime = LocalTime.parse(inputTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
-
             return inputTime.isAfter(currentTime);
         } catch (Exception e) {
-            // Se houver uma exceção ao analisar a hora, retorna false (ou faça o tratamento apropriado)
             return false;
         }
     }

@@ -19,7 +19,7 @@ public class HoursController {
 
     @GetMapping
     public List<HoursEntity> getHoursActive(){
-        return hoursService.listHoursActive();
+        return hoursService.listHours();
     }
 
     @PutMapping("/{hoursId}")

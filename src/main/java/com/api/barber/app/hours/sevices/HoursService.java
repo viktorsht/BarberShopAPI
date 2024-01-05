@@ -25,18 +25,6 @@ public class HoursService {
         return hoursRepository.findAll();
     }
 
-    public List<HoursEntity> listHoursActive() {
-        List<HoursEntity> allHours = hoursRepository.findAll();
-        List<HoursEntity> copyOfHours = new ArrayList<>(allHours);
-        for(HoursEntity hours : copyOfHours){
-            System.out.println(hours.getTime());
-            if(!CalculateTime.isAfterCurrentTime(hours.getTime())){
-                allHours.remove(hours);
-            }
-        }
-        return allHours;
-    }
-
     public void updateHoursActive(int hoursActiveId, HoursDTO hoursDTO){
         var hoursEntity = hoursRepository.findById(hoursActiveId);
         if(hoursEntity.isPresent()) {
